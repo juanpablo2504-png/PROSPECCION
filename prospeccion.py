@@ -369,28 +369,26 @@ def get_email_credentials():
     return get_config("email_remitente", ""), get_config("email_password", "")
 
 
-def generar_plantilla_excel():
-    """Genera un Excel vacío con las columnas configuradas listo para rellenar."""
-    columnas = get_columnas_excel()
-    col_correo = get_config("columna_correo", "Correo")
-    df = pd.DataFrame({col: [""] * 5 for col in columnas})
+def generar_plantilla_excel(columnas):
+    from openpyxl import Workbook
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Prospectos"
+    ws.append(list(columnas))
+    ejemplo = []
+    for col in columnas:
+        col_lower = str(col).lower()
+        if any(x in col_lower for x in ["correo", "email", "mail"]):
+            ejemplo.append("ejemplo@empresa.com")
+        elif any(x in col_lower for x in ["nombre", "name"]):
+            ejemplo.append("Juan Pérez")
+        elif any(x in col_lower for x in ["empresa", "company"]):
+            ejemplo.append("Empresa Ejemplo")
+        else:
+            ejemplo.append(f"Ejemplo {col}")
+    ws.append(ejemplo)
     buffer = io.BytesIO()
-    with pd.ExcelWriter(buffer, engine="openpyxl") as writer:
-        df.to_excel(writer, index=False, sheet_name="Prospectos")
-        # Ajustar ancho de columnas automáticamente
-        ws = writer.sheets["Prospectos"]
-        for i, col in enumerate(columnas, start=1):
-            ws.column_dimensions[__import__('openpyxl').utils.get_column_letter(i)].width = max(20, len(col) + 5)
-        # Agregar nota en la columna de correo
-        from openpyxl.styles import PatternFill, Font
-        for cell in ws[1]:
-            cell.font = Font(bold=True)
-        if col_correo in columnas:
-            idx = columnas.index(col_correo) + 1
-            col_letra = __import__('openpyxl').utils.get_column_letter(idx)
-            ws[f"{col_letra}1"].comment = __import__('openpyxl').comments.Comment(
-                "Separa múltiples correos con ; (punto y coma)", "Sistema"
-            )
+    wb.save(buffer)
     buffer.seek(0)
     return buffer.getvalue()
 
