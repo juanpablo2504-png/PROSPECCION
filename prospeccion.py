@@ -590,7 +590,7 @@ elif pagina == "Envío masivo":
     )
 
     # Botón para descargar la plantilla
-    plantilla_bytes = generar_plantilla_excel()
+    plantilla_bytes = generar_plantilla_excel(columnas)
     st.download_button(
         "⬇️ Descargar plantilla Excel",
         plantilla_bytes,
