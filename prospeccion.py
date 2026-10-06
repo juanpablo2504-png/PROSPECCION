@@ -144,6 +144,12 @@ def init_db():
     for k, v in defaults.items():
         c.execute("INSERT OR IGNORE INTO configuracion (clave, valor) VALUES (?,?)", (k, v))
 
+    # Migración: columna respondido para bases de datos existentes
+    c.execute("PRAGMA table_info(correos_enviados)")
+    cols = [r[1] for r in c.fetchall()]
+    if "respondido" not in cols:
+        c.execute("ALTER TABLE correos_enviados ADD COLUMN respondido INTEGER DEFAULT 0")
+
     conn.commit()
     conn.close()
 
@@ -375,6 +381,14 @@ def get_correos_campana(campana_id, solo_exitosos=False):
     df = pd.read_sql_query(q, conn, params=(campana_id,))
     conn.close()
     return df
+
+
+def marcar_respondido(correo_id, respondido):
+    conn = get_conn()
+    c = conn.cursor()
+    c.execute("UPDATE correos_enviados SET respondido=? WHERE id=?", (int(respondido), correo_id))
+    conn.commit()
+    conn.close()
 
 
 def get_seguimientos_por_correo(correo_enviado_id):
@@ -860,10 +874,33 @@ elif pagina == "Dashboard":
     )
     df_correos = get_correos_campana(campana_id_sel)
     if not df_correos.empty:
-        st.dataframe(df_correos[["nombres", "correos", "estado", "enviado_en", "error"]].rename(columns={
-            "nombres": "Nombre", "correos": "Correo(s)", "estado": "Estado",
-            "enviado_en": "Enviado", "error": "Error"
-        }))
+        respondidos = int(df_correos.get("respondido", pd.Series([0])).fillna(0).sum()) \
+            if "respondido" in df_correos.columns else 0
+        exitosos_total = int((df_correos["estado"] == "enviado").sum())
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Enviados", exitosos_total)
+        c2.metric("Ya respondieron ✅", respondidos)
+        c3.metric("Sin respuesta aún", exitosos_total - respondidos)
+
+        st.caption("Marca a quién ya respondió — esos se excluirán automáticamente de futuros seguimientos.")
+        for _, row in df_correos[df_correos["estado"] == "enviado"].iterrows():
+            ya_respondio = bool(row.get("respondido", 0))
+            col_nombre, col_correo, col_seg, col_btn = st.columns([3, 3, 1, 2])
+            col_nombre.write(row["nombres"])
+            col_correo.write(row["correos"])
+            n_seg = len(get_seguimientos_por_correo(int(row["id"])))
+            col_seg.caption(f"{n_seg} seg.")
+            lbl = "✅ Respondió" if ya_respondio else "📭 Sin respuesta"
+            if col_btn.button(lbl, key=f"resp_{row['id']}",
+                              type="secondary" if ya_respondio else "primary"):
+                marcar_respondido(int(row["id"]), not ya_respondio)
+                st.rerun()
+
+        errores_df = df_correos[df_correos["estado"] == "error"]
+        if not errores_df.empty:
+            with st.expander(f"Ver {len(errores_df)} correo(s) con error"):
+                st.dataframe(errores_df[["nombres","correos","error"]].rename(columns={
+                    "nombres":"Nombre","correos":"Correo(s)","error":"Error"}))
     else:
         st.info("Esta campaña no tiene correos registrados.")
 
@@ -904,21 +941,52 @@ elif pagina == "Seguimientos":
 
     df_exitosos = df_exitosos.copy()
     df_exitosos["n_seg"] = df_exitosos["id"].apply(lambda i: len(get_seguimientos_por_correo(int(i))))
+    if "respondido" not in df_exitosos.columns:
+        df_exitosos["respondido"] = 0
+    df_exitosos["respondido"] = df_exitosos["respondido"].fillna(0).astype(int)
 
-    seleccionar_todos = st.checkbox("Seleccionar todos", value=True)
+    # Separar respondidos y sin respuesta
+    df_sin_respuesta = df_exitosos[df_exitosos["respondido"] == 0]
+    df_respondidos   = df_exitosos[df_exitosos["respondido"] == 1]
+
+    if not df_respondidos.empty:
+        st.info(
+            f"✅ **{len(df_respondidos)}** contacto(s) marcado(s) como 'Ya respondió' "
+            f"— excluidos automáticamente. Puedes cambiar esto en el Dashboard."
+        )
+
+    incluir_respondidos = False
+    if not df_respondidos.empty:
+        incluir_respondidos = st.checkbox(
+            f"Incluir también a los {len(df_respondidos)} que ya respondieron",
+            value=False, key="chk_incluir_respondidos"
+        )
+
+    df_para_seguimiento = df_exitosos if incluir_respondidos else df_sin_respuesta
+
+    if df_para_seguimiento.empty:
+        st.warning("Todos los contactos de esta campaña ya respondieron. "
+                   "Activa la opción de arriba si de todas formas quieres enviarles seguimiento.")
+        st.stop()
+
+    seleccionar_todos = st.checkbox("Seleccionar todos", value=True, key="chk_sel_todos_seg")
     if seleccionar_todos:
-        ids_sel = df_exitosos["id"].tolist()
+        ids_sel = df_para_seguimiento["id"].tolist()
     else:
+        def label_seg(x):
+            row = df_para_seguimiento[df_para_seguimiento["id"] == x].iloc[0]
+            partes = [f"{row['nombres']} — {row['correos']}"]
+            if row["n_seg"] > 0:
+                partes.append(f"{row['n_seg']} seg.")
+            if row["respondido"]:
+                partes.append("✅ ya respondió")
+            return "  ·  ".join(partes)
+
         ids_sel = st.multiselect(
             "Destinatarios",
-            options=df_exitosos["id"].tolist(),
-            default=df_exitosos["id"].tolist(),
-            format_func=lambda x: (
-                f"{df_exitosos.loc[df_exitosos['id']==x,'nombres'].iloc[0]} — "
-                f"{df_exitosos.loc[df_exitosos['id']==x,'correos'].iloc[0]}"
-                + (f" · {df_exitosos.loc[df_exitosos['id']==x,'n_seg'].iloc[0]} seg." 
-                   if df_exitosos.loc[df_exitosos['id']==x,'n_seg'].iloc[0] > 0 else "")
-            )
+            options=df_para_seguimiento["id"].tolist(),
+            default=df_para_seguimiento["id"].tolist(),
+            format_func=label_seg
         )
 
     st.caption(f"{len(ids_sel)} destinatario(s) seleccionado(s).")
