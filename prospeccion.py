@@ -516,20 +516,21 @@ def login_form():
         st.markdown("""
         <div style="text-align:center; margin-bottom:2.5rem;">
             <div style="
-                display:inline-flex; align-items:center; justify-content:center;
-                background:linear-gradient(135deg,#7c4dff,#c084fc);
-                border-radius:50%; width:56px; height:56px;
-                font-size:26px; margin-bottom:1.2rem;
-                box-shadow: 0 8px 32px rgba(124,77,255,0.4);
-            ">✉️</div>
+                display:inline-block;
+                background:#111111; color:#ff3c00;
+                width:52px; height:52px; line-height:52px;
+                font-size:24px; margin-bottom:1.2rem;
+                font-weight:700;
+            ">✉</div>
             <h1 style="
-                font-size:1.8rem; font-weight:600;
-                color:#f0eaff; margin:0 0 0.4rem 0;
-                letter-spacing:-0.02em; border:none; padding:0;
+                font-family:'Space Grotesk',sans-serif;
+                font-size:2rem; font-weight:700; text-transform:uppercase;
+                color:#111111; margin:0 0 0.4rem 0;
+                letter-spacing:-0.04em; border:none; padding:0;
             ">Prospección en Frío</h1>
-            <p style="color:#7060a0; font-size:0.8rem; margin:0;
-                      letter-spacing:0.06em;">
-                Ingresa tus credenciales para continuar
+            <p style="font-family:'Space Mono',monospace; color:#999999;
+                      font-size:0.7rem; margin:0; letter-spacing:0.1em; text-transform:uppercase;">
+                Ingresa tus credenciales
             </p>
         </div>
         """, unsafe_allow_html=True)
@@ -570,80 +571,97 @@ def verificar_admin():
 
 init_db()
 
-# ─── Tema visual Voice / Communication ───────────────────────────────────────
+# ─── Tema visual Cultural / Experimental ─────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 html, body, [class*="css"] {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-weight: 400;
 }
 
-/* ── Fondo: índigo casi negro con gradiente sutil ── */
+/* ── Fondo: blanco roto con textura ── */
 .stApp {
-    background: radial-gradient(ellipse at 20% 0%, #1a1035 0%, #0d0820 60%, #080612 100%);
-    color: #e8e0f8;
-    min-height: 100vh;
+    background-color: #f2f0eb;
+    color: #111111;
 }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    background: #100a24 !important;
-    border-right: 1px solid #2a1f50 !important;
+    background-color: #111111 !important;
+    border-right: none !important;
 }
-[data-testid="stSidebar"] * { color: #c0b4e0 !important; }
+[data-testid="stSidebar"] * { color: #f2f0eb !important; }
 [data-testid="stSidebar"] .stRadio label {
-    font-size: 0.85rem !important;
-    font-weight: 400 !important;
-    letter-spacing: 0.02em !important;
-    color: #9080c0 !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.04em !important;
+    color: #aaaaaa !important;
 }
 
 /* ── Títulos ── */
 h1 {
-    font-weight: 600 !important;
-    font-size: 1.9rem !important;
-    color: #f0eaff !important;
-    letter-spacing: -0.025em;
-    border-bottom: 1px solid #2a1f50;
-    padding-bottom: 0.8rem;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 2.4rem !important;
+    color: #111111 !important;
+    letter-spacing: -0.04em;
+    border-bottom: 3px solid #111111;
+    padding-bottom: 0.6rem;
     margin-bottom: 1.4rem !important;
+    text-transform: uppercase;
 }
-h2 { font-weight: 500 !important; color: #e0d4f8 !important; }
-h3 { font-weight: 500 !important; color: #b8a8d8 !important; font-size: 0.95rem !important; }
+h2 {
+    font-weight: 700 !important;
+    color: #111111 !important;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+h3 {
+    font-family: 'Space Mono', monospace !important;
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
+    color: #888888 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+}
 
-/* ── Botón primario: lila vibrante ── */
+/* ── Botón primario: negro total, hover con acento ── */
 .stButton > button[kind="primary"] {
-    background: linear-gradient(135deg, #7c4dff 0%, #a855f7 100%) !important;
-    color: #ffffff !important;
-    border: none !important;
-    border-radius: 50px !important;
-    font-weight: 600 !important;
-    font-size: 0.84rem !important;
-    letter-spacing: 0.02em !important;
-    padding: 0.5rem 1.6rem !important;
-    transition: all 0.25s ease !important;
-    box-shadow: 0 4px 20px rgba(124,77,255,0.3) !important;
+    background: #111111 !important;
+    color: #f2f0eb !important;
+    border: 2px solid #111111 !important;
+    border-radius: 0px !important;
+    font-weight: 700 !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    padding: 0.55rem 1.6rem !important;
+    transition: all 0.15s ease !important;
 }
 .stButton > button[kind="primary"]:hover {
-    background: linear-gradient(135deg, #9060ff 0%, #c070ff 100%) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 28px rgba(124,77,255,0.45) !important;
+    background: #ff3c00 !important;
+    border-color: #ff3c00 !important;
+    color: #ffffff !important;
+    transform: none !important;
 }
 
 /* ── Botón secundario ── */
 .stButton > button[kind="secondary"] {
     background: transparent !important;
-    color: #9080c0 !important;
-    border: 1px solid #3a2870 !important;
-    border-radius: 50px !important;
-    font-size: 0.84rem !important;
-    transition: all 0.25s ease !important;
+    color: #555555 !important;
+    border: 2px solid #cccccc !important;
+    border-radius: 0px !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    transition: all 0.15s ease !important;
 }
 .stButton > button[kind="secondary"]:hover {
-    border-color: #7c4dff !important;
-    color: #c0a0ff !important;
+    border-color: #111111 !important;
+    color: #111111 !important;
 }
 
 /* ── Inputs ── */
@@ -651,126 +669,141 @@ h3 { font-weight: 500 !important; color: #b8a8d8 !important; font-size: 0.95rem 
 .stTextArea > div > div > textarea,
 .stSelectbox > div > div > div,
 .stNumberInput > div > div > input {
-    background: #160f30 !important;
-    border: 1px solid #2a2050 !important;
-    border-radius: 12px !important;
-    color: #e8e0f8 !important;
-    font-size: 0.88rem !important;
-    transition: all 0.2s ease !important;
+    background: #ffffff !important;
+    border: 2px solid #cccccc !important;
+    border-radius: 0px !important;
+    color: #111111 !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-size: 0.9rem !important;
+    transition: border-color 0.15s ease !important;
 }
 .stTextInput > div > div > input:focus,
 .stTextArea > div > div > textarea:focus {
-    border-color: #7c4dff !important;
-    box-shadow: 0 0 0 3px rgba(124,77,255,0.15) !important;
+    border-color: #ff3c00 !important;
+    box-shadow: none !important;
 }
 
 /* ── Labels ── */
 .stTextInput label, .stTextArea label, .stSelectbox label,
 .stNumberInput label, .stCheckbox label, .stFileUploader label {
-    color: #7060a0 !important;
-    font-size: 0.78rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.06em !important;
+    font-family: 'Space Mono', monospace !important;
+    color: #888888 !important;
+    font-size: 0.7rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
 }
 
 /* ── Containers ── */
 [data-testid="stVerticalBlock"] > div > div[data-testid="stVerticalBlockBorderWrapper"] {
-    background: rgba(22,15,48,0.7) !important;
-    border: 1px solid #2a2050 !important;
-    border-radius: 16px !important;
+    background: #ffffff !important;
+    border: 2px solid #111111 !important;
+    border-radius: 0px !important;
     padding: 1.4rem !important;
-    backdrop-filter: blur(8px);
 }
 
 /* ── Métricas ── */
 [data-testid="metric-container"] {
-    background: rgba(22,15,48,0.6) !important;
-    border: 1px solid #2a2050 !important;
-    border-radius: 14px !important;
+    background: #111111 !important;
+    border: none !important;
+    border-radius: 0px !important;
     padding: 1.2rem !important;
 }
 [data-testid="metric-container"] label {
-    color: #6858a0 !important;
-    font-size: 0.72rem !important;
+    font-family: 'Space Mono', monospace !important;
+    color: #666666 !important;
+    font-size: 0.68rem !important;
     text-transform: uppercase !important;
     letter-spacing: 0.1em !important;
-    font-weight: 500 !important;
 }
 [data-testid="stMetricValue"] {
-    color: #c0a0ff !important;
-    font-weight: 600 !important;
-    font-size: 1.9rem !important;
+    color: #ff3c00 !important;
+    font-weight: 700 !important;
+    font-size: 2rem !important;
+    letter-spacing: -0.03em;
 }
 
 /* ── Tabs ── */
 .stTabs [data-baseweb="tab-list"] {
     background: transparent !important;
-    border-bottom: 1px solid #2a2050 !important;
+    border-bottom: 2px solid #111111 !important;
     gap: 0 !important;
 }
 .stTabs [data-baseweb="tab"] {
-    color: #6858a0 !important;
-    font-size: 0.82rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.03em !important;
-    padding: 0.65rem 1.3rem !important;
-    border-bottom: 2px solid transparent !important;
+    font-family: 'Space Mono', monospace !important;
+    color: #aaaaaa !important;
+    font-size: 0.72rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    padding: 0.65rem 1.2rem !important;
+    border-bottom: 3px solid transparent !important;
     background: transparent !important;
 }
 .stTabs [aria-selected="true"] {
-    color: #c0a0ff !important;
-    border-bottom: 2px solid #7c4dff !important;
+    color: #111111 !important;
+    border-bottom: 3px solid #ff3c00 !important;
     background: transparent !important;
 }
 
 /* ── Dataframes ── */
 [data-testid="stDataFrame"] {
-    border: 1px solid #2a2050 !important;
-    border-radius: 12px !important;
+    border: 2px solid #111111 !important;
+    border-radius: 0px !important;
     overflow: hidden;
 }
 
 /* ── Divider ── */
 hr {
-    border-color: #2a2050 !important;
-    margin: 1.5rem 0 !important;
+    border: none !important;
+    border-top: 2px solid #dddddd !important;
+    margin: 1.8rem 0 !important;
 }
 
 /* ── Caption ── */
 .stCaption, [data-testid="stCaptionContainer"] {
-    color: #6858a0 !important;
-    font-size: 0.78rem !important;
+    font-family: 'Space Mono', monospace !important;
+    color: #999999 !important;
+    font-size: 0.72rem !important;
 }
 
 /* ── File uploader ── */
 [data-testid="stFileUploaderDropzone"] {
-    background: rgba(22,15,48,0.5) !important;
-    border: 1px dashed #3a2870 !important;
-    border-radius: 12px !important;
+    background: #ffffff !important;
+    border: 2px dashed #cccccc !important;
+    border-radius: 0px !important;
 }
 
 /* ── Progress bar ── */
 .stProgress > div > div > div {
-    background: linear-gradient(90deg, #7c4dff, #c084fc) !important;
-    border-radius: 4px !important;
+    background: #ff3c00 !important;
+    border-radius: 0px !important;
 }
 
 /* ── Expander ── */
 [data-testid="stExpander"] {
-    background: rgba(22,15,48,0.5) !important;
-    border: 1px solid #2a2050 !important;
-    border-radius: 12px !important;
+    background: #ffffff !important;
+    border: 2px solid #dddddd !important;
+    border-radius: 0px !important;
 }
 [data-testid="stExpander"] summary {
-    color: #9080c0 !important;
-    font-size: 0.85rem !important;
+    font-family: 'Space Mono', monospace !important;
+    color: #555555 !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
 }
 
 /* ── Checkbox ── */
 [data-testid="stCheckbox"] span {
-    color: #b0a0d8 !important;
+    color: #333333 !important;
     font-size: 0.88rem !important;
+}
+
+/* ── Alertas ── */
+[data-testid="stAlert"] {
+    border-radius: 0px !important;
+    border-left: 3px solid #ff3c00 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -830,20 +863,20 @@ if pagina == "Inicio":
     with col1:
         st.markdown("""
         <div style="
-            background:rgba(22,15,48,0.6); border:1px solid #2a2050;
-            border-radius:16px; padding:1.8rem 1.6rem 1.2rem;
-            position:relative; overflow:hidden;
+            background:#111111; border:none;
+            padding:2rem 1.6rem 1.4rem;
         ">
-            <div style="
-                position:absolute; top:-20px; right:-20px;
-                width:80px; height:80px; border-radius:50%;
-                background:radial-gradient(circle, rgba(124,77,255,0.15), transparent 70%);
-            "></div>
-            <div style="font-size:1.6rem; margin-bottom:0.8rem;">📤</div>
-            <div style="font-weight:600; font-size:1.05rem; color:#f0eaff; margin-bottom:0.5rem;">
+            <div style="font-family:'Space Mono',monospace; font-size:0.65rem;
+                        letter-spacing:0.14em; text-transform:uppercase;
+                        color:#ff3c00; margin-bottom:0.8rem;">
+                01 — Campaña
+            </div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700;
+                        font-size:1.4rem; color:#f2f0eb; margin-bottom:0.6rem;
+                        text-transform:uppercase; letter-spacing:-0.02em;">
                 Envío masivo
             </div>
-            <div style="color:#7060a0; font-size:0.84rem; line-height:1.6;">
+            <div style="color:#666666; font-size:0.84rem; line-height:1.6;">
                 Sube un Excel con tus prospectos y envía correos personalizados a todos de un solo clic.
             </div>
         </div>
@@ -855,20 +888,20 @@ if pagina == "Inicio":
     with col2:
         st.markdown("""
         <div style="
-            background:rgba(22,15,48,0.6); border:1px solid #2a2050;
-            border-radius:16px; padding:1.8rem 1.6rem 1.2rem;
-            position:relative; overflow:hidden;
+            background:#f2f0eb; border:2px solid #111111;
+            padding:2rem 1.6rem 1.4rem;
         ">
-            <div style="
-                position:absolute; top:-20px; right:-20px;
-                width:80px; height:80px; border-radius:50%;
-                background:radial-gradient(circle, rgba(168,85,247,0.15), transparent 70%);
-            "></div>
-            <div style="font-size:1.6rem; margin-bottom:0.8rem;">✉️</div>
-            <div style="font-weight:600; font-size:1.05rem; color:#f0eaff; margin-bottom:0.5rem;">
+            <div style="font-family:'Space Mono',monospace; font-size:0.65rem;
+                        letter-spacing:0.14em; text-transform:uppercase;
+                        color:#888888; margin-bottom:0.8rem;">
+                02 — Prospecto
+            </div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700;
+                        font-size:1.4rem; color:#111111; margin-bottom:0.6rem;
+                        text-transform:uppercase; letter-spacing:-0.02em;">
                 Envío individual
             </div>
-            <div style="color:#7060a0; font-size:0.84rem; line-height:1.6;">
+            <div style="color:#666666; font-size:0.84rem; line-height:1.6;">
                 Envía un correo personalizado a un prospecto específico con la plantilla activa.
             </div>
         </div>
@@ -877,708 +910,3 @@ if pagina == "Inicio":
         if st.button("Ir a Envío individual →", type="primary", key="btn_individual"):
             st.session_state.pagina = "Envío individual"
             st.rerun()
-
-    st.divider()
-    campanas_df = get_campanas(solo_usuario=None if is_admin else username_actual)
-    if not campanas_df.empty:
-        total_enviados = int(campanas_df['total'].sum())
-        total_exitosos = int(campanas_df['exitosos'].sum())
-        tasa = round(total_exitosos / total_enviados * 100, 1) if total_enviados else 0
-        m1, m2, m3, m4 = st.columns(4)
-        m1.metric("Campañas", len(campanas_df))
-        m2.metric("Correos enviados", total_enviados)
-        m3.metric("Exitosos", total_exitosos)
-        m4.metric("Tasa de éxito", f"{tasa}%")
-
-
-# ═══════════════════════════════════════════════
-# ENVÍO MASIVO
-# ═══════════════════════════════════════════════
-
-elif pagina == "Envío masivo":
-    st.title("📤 Envío masivo")
-
-    columnas = get_columnas_excel()
-    col_correo = get_config("columna_correo", "Correo")
-    cols_sin_correo = [c for c in columnas if c != col_correo]
-    asunto_plantilla, cuerpo_plantilla = get_plantilla_usuario(username_actual)
-
-    rem, _ = get_email_credentials_usuario(username_actual)
-    if not rem:
-        st.error("Sin credenciales de correo. Ve a **Mi configuración → Correo** antes de enviar.")
-        st.stop()
-
-    st.info(
-        f"El Excel debe tener las columnas: **{', '.join(columnas)}**. "
-        f"Separa con `;` si hay varios destinatarios en la misma fila."
-    )
-
-    st.subheader("1. Nombre de la campaña")
-    nombre_campana = st.text_input("Nombre", placeholder="Ej: Prospección Julio 2026 — PYMES CDMX")
-
-    st.subheader("2. Excel de prospectos")
-    col_desc, col_btn = st.columns([3, 1])
-    with col_desc:
-        st.caption(f"Columnas requeridas: **{', '.join(columnas)}**")
-    with col_btn:
-        st.download_button(
-            "⬇️ Plantilla Excel",
-            generar_plantilla_excel(columnas),
-            file_name="plantilla_prospectos.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        )
-
-    archivo_excel = st.file_uploader("Sube tu Excel lleno", type=["xlsx"])
-    df_prospectos = None
-    if archivo_excel:
-        try:
-            df_prospectos = pd.read_excel(archivo_excel, engine="openpyxl")
-            df_prospectos.columns = [str(c).strip() for c in df_prospectos.columns]
-            df_prospectos = df_prospectos.dropna(how="all").reset_index(drop=True)
-            faltantes = [c for c in columnas if c not in df_prospectos.columns]
-            if faltantes:
-                st.error(f"Al Excel le faltan: **{', '.join(faltantes)}**")
-                df_prospectos = None
-            else:
-                st.success(f"✅ {len(df_prospectos)} prospecto(s) cargados.")
-                if len(df_prospectos) > 400:
-                    st.warning("⚠️ Gmail permite ~500 correos diarios. Considera dividirlo en varias campañas.")
-                st.dataframe(df_prospectos[columnas].head(5))
-        except Exception as e:
-            st.error(f"No pude leer el archivo: {e}")
-
-    st.subheader("3. Asunto y cuerpo")
-    st.caption(f"Placeholders: {' · '.join(f'**({c})**' for c in cols_sin_correo)}")
-    asunto = st.text_input("Asunto", value=asunto_plantilla)
-    cuerpo = st.text_area("Cuerpo", value=cuerpo_plantilla, height=250)
-
-    invalidos = validar_placeholders(asunto, cuerpo, columnas)
-    if invalidos:
-        st.warning(f"Placeholders no reconocidos: {', '.join(f'({p})' for p in invalidos)}")
-
-    st.subheader("4. Adjuntos (opcional)")
-    adjuntos_masivo = st.file_uploader("Archivos adjuntos", type=None, key="adj_masivo", accept_multiple_files=True)
-
-    if df_prospectos is not None and nombre_campana.strip() and not invalidos:
-        st.subheader("5. Vista previa y envío")
-        primera_fila = df_prospectos.iloc[0].to_dict()
-        asunto_prev = aplicar_placeholders(asunto, primera_fila, columnas)
-        cuerpo_prev = aplicar_placeholders(cuerpo, primera_fila, columnas)
-        nombre_prev = formatear_multi(str(primera_fila.get(cols_sin_correo[0], ""))) if cols_sin_correo else ""
-
-        with st.expander(f"👁 Preview — {nombre_prev}", expanded=True):
-            st.markdown(f"**Asunto:** {asunto_prev}")
-            st.divider()
-            st.text(cuerpo_prev)
-
-        if st.button(f"🚀 Enviar a {len(df_prospectos)} prospecto(s)", type="primary"):
-            lista_adj = [(a.read(), a.name) for a in adjuntos_masivo] if adjuntos_masivo else []
-            adj_nombre_str = ", ".join(a.name for a in adjuntos_masivo) if adjuntos_masivo else None
-            campana_id = crear_campana(
-                nombre_campana.strip(), asunto, cuerpo, "masivo",
-                username_actual, adjunto_nombre=adj_nombre_str
-            )
-            barra = st.progress(0, text="Iniciando envío...")
-            enviados, errores = 0, 0
-            for i, (_, fila) in enumerate(df_prospectos.iterrows()):
-                fila_dict = fila.to_dict()
-                correos_str = str(fila_dict.get(col_correo, ""))
-                correos_lista = [c.strip() for c in correos_str.split(';') if c.strip()]
-                if not correos_lista:
-                    registrar_correo(campana_id, "", correos_str, "", "", "error",
-                                     fila_datos=fila_dict, error="Sin correo")
-                    errores += 1
-                    continue
-                asunto_f = aplicar_placeholders(asunto, fila_dict, columnas)
-                cuerpo_f = aplicar_placeholders(cuerpo, fila_dict, columnas)
-                nombres_f = formatear_multi(str(fila_dict.get(cols_sin_correo[0], ""))) if cols_sin_correo else correos_str
-                ok, msg = enviar_correo(correos_lista, asunto_f, cuerpo_f, adjuntos=lista_adj, username=username_actual)
-                registrar_correo(campana_id, nombres_f, correos_str, asunto_f, cuerpo_f,
-                                 "enviado" if ok else "error", fila_datos=fila_dict, error=None if ok else msg)
-                enviados += (1 if ok else 0)
-                errores += (0 if ok else 1)
-                barra.progress((i + 1) / len(df_prospectos), text=f"Enviando {i+1}/{len(df_prospectos)}…")
-                time.sleep(0.3)
-            barra.empty()
-            if errores == 0:
-                st.success(f"✅ {enviados} correo(s) enviados exitosamente.")
-            else:
-                st.warning(f"✅ {enviados} enviados · ❌ {errores} con error.")
-    elif df_prospectos is not None and not nombre_campana.strip():
-        st.info("Escribe un nombre para la campaña antes de continuar.")
-
-
-# ═══════════════════════════════════════════════
-# ENVÍO INDIVIDUAL
-# ═══════════════════════════════════════════════
-
-elif pagina == "Envío individual":
-    st.title("✉️ Envío individual")
-
-    columnas = get_columnas_excel()
-    col_correo = get_config("columna_correo", "Correo")
-    cols_sin_correo = [c for c in columnas if c != col_correo]
-    asunto_plantilla, cuerpo_plantilla = get_plantilla_usuario(username_actual)
-
-    rem, _ = get_email_credentials_usuario(username_actual)
-    if not rem:
-        st.error("Sin credenciales de correo. Ve a **Mi configuración → Correo** antes de enviar.")
-        st.stop()
-
-    st.caption(f"Placeholders: {' · '.join(f'**({c})**' for c in cols_sin_correo)}")
-
-    st.subheader("Datos del prospecto")
-    campos = {}
-    n_cols = min(len(columnas), 3)
-    col_inputs = st.columns(n_cols)
-    for idx, col in enumerate(columnas):
-        with col_inputs[idx % n_cols]:
-            hint = f"{col} (separa con ; si son varios)" if col == col_correo else col
-            campos[col] = st.text_input(hint, key=f"ind_{col}")
-
-    st.subheader("Asunto y cuerpo")
-    asunto_ind = st.text_input("Asunto", value=asunto_plantilla, key="asunto_ind")
-    cuerpo_ind = st.text_area("Cuerpo", value=cuerpo_plantilla, height=250, key="cuerpo_ind")
-    adjuntos_ind = st.file_uploader("Adjunto(s) (opcional)", key="adj_ind", accept_multiple_files=True)
-
-    correo_ingresado = campos.get(col_correo, "").strip()
-    if correo_ingresado:
-        asunto_prev = aplicar_placeholders(asunto_ind, campos, columnas)
-        cuerpo_prev = aplicar_placeholders(cuerpo_ind, campos, columnas)
-        nombre_prev = formatear_multi(campos.get(cols_sin_correo[0], "")) if cols_sin_correo else correo_ingresado
-
-        with st.expander(f"👁 Preview — {nombre_prev}", expanded=True):
-            st.markdown(f"**Asunto:** {asunto_prev}")
-            st.divider()
-            st.text(cuerpo_prev)
-
-        if st.button("📤 Enviar correo", type="primary"):
-            correos_lista = [c.strip() for c in correo_ingresado.split(';') if c.strip()]
-            lista_adj = [(a.read(), a.name) for a in adjuntos_ind] if adjuntos_ind else []
-            adj_nombre_str = ", ".join(a.name for a in adjuntos_ind) if adjuntos_ind else None
-            campana_id = crear_campana(
-                f"Individual — {nombre_prev} — {hoy_cdmx()}",
-                asunto_ind, cuerpo_ind, "individual", username_actual, adjunto_nombre=adj_nombre_str
-            )
-            ok, msg = enviar_correo(correos_lista, asunto_prev, cuerpo_prev, adjuntos=lista_adj, username=username_actual)
-            registrar_correo(
-                campana_id, nombre_prev, correo_ingresado,
-                asunto_prev, cuerpo_prev,
-                "enviado" if ok else "error",
-                fila_datos=campos, error=None if ok else msg
-            )
-            if ok:
-                st.success(f"✅ Correo enviado a {', '.join(correos_lista)}.")
-            else:
-                st.error(f"❌ Error: {msg}")
-    else:
-        st.info(f"Llena el campo **{col_correo}** para ver la vista previa.")
-
-
-# ═══════════════════════════════════════════════
-# DASHBOARD
-# ═══════════════════════════════════════════════
-
-elif pagina == "Dashboard":
-    st.title("📊 Dashboard")
-
-    # Admin puede ver todos o filtrar por usuario
-    if is_admin:
-        usuarios_df = get_usuarios()
-        opciones_usuario = ["Todos"] + usuarios_df["username"].tolist()
-        filtro_usuario = st.selectbox("Ver campañas de:", opciones_usuario, key="dash_filtro_usuario")
-        solo_usuario = None if filtro_usuario == "Todos" else filtro_usuario
-    else:
-        solo_usuario = username_actual
-        st.caption(f"Mostrando tus campañas.")
-
-    campanas_df = get_campanas(solo_usuario=solo_usuario)
-
-    if campanas_df.empty:
-        st.info("No hay campañas registradas todavía.")
-        st.stop()
-
-    total_enviados = int(campanas_df['total'].sum())
-    total_exitosos = int(campanas_df['exitosos'].sum())
-    tasa = (total_exitosos / total_enviados * 100) if total_enviados else 0
-
-    m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Campañas", len(campanas_df))
-    m2.metric("Correos enviados", total_enviados)
-    m3.metric("Exitosos", total_exitosos)
-    m4.metric("Tasa de éxito", f"{tasa:.1f}%")
-
-    conn = get_conn()
-    where_dia = f"WHERE ce.enviado_en >= '0' AND c.usuario='{solo_usuario}'" if solo_usuario else ""
-    df_por_dia = pd.read_sql_query(
-        f"""SELECT DATE(ce.enviado_en) AS dia,
-           COUNT(*) AS total,
-           SUM(CASE WHEN ce.estado='enviado' THEN 1 ELSE 0 END) AS exitosos
-           FROM correos_enviados ce
-           JOIN campanas c ON ce.campana_id = c.id
-           {where_dia}
-           GROUP BY dia ORDER BY dia""",
-        conn
-    )
-    conn.close()
-
-    if not df_por_dia.empty:
-        st.subheader("Envíos por día")
-        fig = px.bar(df_por_dia, x="dia", y="exitosos",
-                     labels={"dia": "Día", "exitosos": "Correos enviados"},
-                     color_discrete_sequence=["#1f77b4"])
-        st.plotly_chart(fig)
-
-    st.subheader("Campañas")
-    cols_mostrar = ["nombre", "tipo", "usuario", "total", "exitosos", "errores", "creado_en"] if is_admin \
-        else ["nombre", "tipo", "total", "exitosos", "errores", "creado_en"]
-    st.dataframe(campanas_df[cols_mostrar].rename(columns={
-        "nombre": "Campaña", "tipo": "Tipo", "usuario": "Usuario",
-        "total": "Total", "exitosos": "✅", "errores": "❌", "creado_en": "Fecha"
-    }))
-
-    st.subheader("Detalle por campaña")
-    campana_id_sel = st.selectbox(
-        "Campaña",
-        campanas_df["id"].tolist(),
-        format_func=lambda x: campanas_df.loc[campanas_df["id"] == x, "nombre"].iloc[0]
-    )
-    df_correos = get_correos_campana(campana_id_sel)
-    if not df_correos.empty:
-        respondidos = int(df_correos.get("respondido", pd.Series([0])).fillna(0).sum()) \
-            if "respondido" in df_correos.columns else 0
-        exitosos_total = int((df_correos["estado"] == "enviado").sum())
-        c1, c2, c3 = st.columns(3)
-        c1.metric("Enviados", exitosos_total)
-        c2.metric("Ya respondieron ✅", respondidos)
-        c3.metric("Sin respuesta aún", exitosos_total - respondidos)
-
-        st.caption("Marca a quién ya respondió — esos se excluirán automáticamente de futuros seguimientos.")
-        for _, row in df_correos[df_correos["estado"] == "enviado"].iterrows():
-            ya_respondio = bool(row.get("respondido", 0))
-            col_nombre, col_correo, col_seg, col_btn = st.columns([3, 3, 1, 2])
-            col_nombre.write(row["nombres"])
-            col_correo.write(row["correos"])
-            n_seg = len(get_seguimientos_por_correo(int(row["id"])))
-            col_seg.caption(f"{n_seg} seg.")
-            lbl = "✅ Respondió" if ya_respondio else "📭 Sin respuesta"
-            if col_btn.button(lbl, key=f"resp_{row['id']}",
-                              type="secondary" if ya_respondio else "primary"):
-                marcar_respondido(int(row["id"]), not ya_respondio)
-                st.rerun()
-
-        errores_df = df_correos[df_correos["estado"] == "error"]
-        if not errores_df.empty:
-            with st.expander(f"Ver {len(errores_df)} correo(s) con error"):
-                st.dataframe(errores_df[["nombres","correos","error"]].rename(columns={
-                    "nombres":"Nombre","correos":"Correo(s)","error":"Error"}))
-    else:
-        st.info("Esta campaña no tiene correos registrados.")
-
-
-# ═══════════════════════════════════════════════
-# SEGUIMIENTOS
-# ═══════════════════════════════════════════════
-
-elif pagina == "Seguimientos":
-    st.title("🔄 Seguimientos")
-
-    solo_usuario = None if is_admin else username_actual
-    campanas_df = get_campanas(solo_usuario=solo_usuario)
-    campanas_con_enviados = campanas_df[campanas_df["exitosos"] > 0] if not campanas_df.empty else campanas_df
-
-    if campanas_con_enviados.empty:
-        st.info("No hay campañas con correos enviados todavía.")
-        st.stop()
-
-    if is_admin:
-        filtro_u = st.selectbox("Campañas de:", ["Todos"] + get_usuarios()["username"].tolist(), key="seg_filtro_u")
-        if filtro_u != "Todos":
-            campanas_con_enviados = campanas_con_enviados[campanas_con_enviados["usuario"] == filtro_u]
-
-    campana_id_sel = st.selectbox(
-        "Campaña de origen",
-        campanas_con_enviados["id"].tolist(),
-        format_func=lambda x: campanas_con_enviados.loc[campanas_con_enviados["id"] == x, "nombre"].iloc[0]
-    )
-
-    # Usuario dueño de la campaña (para usar sus credenciales al enviar)
-    usuario_campana = campanas_con_enviados.loc[campanas_con_enviados["id"] == campana_id_sel, "usuario"].iloc[0]
-
-    df_exitosos = get_correos_campana(campana_id_sel, solo_exitosos=True)
-    if df_exitosos.empty:
-        st.info("No hay correos exitosos en esta campaña.")
-        st.stop()
-
-    df_exitosos = df_exitosos.copy()
-    df_exitosos["n_seg"] = df_exitosos["id"].apply(lambda i: len(get_seguimientos_por_correo(int(i))))
-    if "respondido" not in df_exitosos.columns:
-        df_exitosos["respondido"] = 0
-    df_exitosos["respondido"] = df_exitosos["respondido"].fillna(0).astype(int)
-
-    # Separar respondidos y sin respuesta
-    df_sin_respuesta = df_exitosos[df_exitosos["respondido"] == 0]
-    df_respondidos   = df_exitosos[df_exitosos["respondido"] == 1]
-
-    if not df_respondidos.empty:
-        st.info(
-            f"✅ **{len(df_respondidos)}** contacto(s) marcado(s) como 'Ya respondió' "
-            f"— excluidos automáticamente. Puedes cambiar esto en el Dashboard."
-        )
-
-    incluir_respondidos = False
-    if not df_respondidos.empty:
-        incluir_respondidos = st.checkbox(
-            f"Incluir también a los {len(df_respondidos)} que ya respondieron",
-            value=False, key="chk_incluir_respondidos"
-        )
-
-    df_para_seguimiento = df_exitosos if incluir_respondidos else df_sin_respuesta
-
-    if df_para_seguimiento.empty:
-        st.warning("Todos los contactos de esta campaña ya respondieron. "
-                   "Activa la opción de arriba si de todas formas quieres enviarles seguimiento.")
-        st.stop()
-
-    seleccionar_todos = st.checkbox("Seleccionar todos", value=True, key="chk_sel_todos_seg")
-    if seleccionar_todos:
-        ids_sel = df_para_seguimiento["id"].tolist()
-    else:
-        def label_seg(x):
-            row = df_para_seguimiento[df_para_seguimiento["id"] == x].iloc[0]
-            partes = [f"{row['nombres']} — {row['correos']}"]
-            if row["n_seg"] > 0:
-                partes.append(f"{row['n_seg']} seg.")
-            if row["respondido"]:
-                partes.append("✅ ya respondió")
-            return "  ·  ".join(partes)
-
-        ids_sel = st.multiselect(
-            "Destinatarios",
-            options=df_para_seguimiento["id"].tolist(),
-            default=df_para_seguimiento["id"].tolist(),
-            format_func=label_seg
-        )
-
-    st.caption(f"{len(ids_sel)} destinatario(s) seleccionado(s).")
-
-    columnas = get_columnas_excel()
-    col_correo = get_config("columna_correo", "Correo")
-    cols_sin_correo = [c for c in columnas if c != col_correo]
-
-    st.subheader("Correo de seguimiento")
-    st.caption(f"Placeholders: {' · '.join(f'**({c})**' for c in cols_sin_correo)}")
-    asunto_seg = st.text_input("Asunto", placeholder="Seguimiento a mi propuesta para (Empresa)", key="asunto_seg")
-    cuerpo_seg = st.text_area("Cuerpo", height=200, key="cuerpo_seg",
-                              placeholder="Hola (Nombre),\n\nQuería hacer seguimiento...")
-    adjuntos_seg = st.file_uploader("Adjunto(s) (opcional)", key="adj_seg", accept_multiple_files=True)
-
-    invalidos_seg = validar_placeholders(asunto_seg, cuerpo_seg, columnas) if asunto_seg and cuerpo_seg else []
-    if invalidos_seg:
-        st.warning(f"Placeholders no reconocidos: {', '.join(f'({p})' for p in invalidos_seg)}")
-
-    if ids_sel and asunto_seg and cuerpo_seg and not invalidos_seg:
-        if st.button(f"📤 Enviar seguimiento a {len(ids_sel)} destinatario(s)", type="primary"):
-            lista_adj = [(a.read(), a.name) for a in adjuntos_seg] if adjuntos_seg else []
-            barra = st.progress(0)
-            enviados, errores = 0, 0
-            for i, id_correo in enumerate(ids_sel):
-                fila_correo = df_exitosos[df_exitosos["id"] == id_correo].iloc[0]
-                fila_datos = {}
-                raw = fila_correo.get("fila_datos")
-                if isinstance(raw, str) and raw.strip():
-                    try:
-                        fila_datos = json.loads(raw)
-                    except Exception:
-                        fila_datos = {}
-                if not fila_datos:
-                    fila_datos = {"Nombre": fila_correo["nombres"], col_correo: fila_correo["correos"]}
-                asunto_f = aplicar_placeholders(asunto_seg, fila_datos, columnas)
-                cuerpo_f = aplicar_placeholders(cuerpo_seg, fila_datos, columnas)
-                correos_lista = [c.strip() for c in fila_correo["correos"].split(';') if c.strip()]
-                ok, msg = enviar_correo(correos_lista, asunto_f, cuerpo_f, adjuntos=lista_adj, username=usuario_campana)
-                registrar_seguimiento(int(id_correo), asunto_f, cuerpo_f, "enviado" if ok else "error", None if ok else msg)
-                enviados += (1 if ok else 0)
-                errores += (0 if ok else 1)
-                barra.progress((i + 1) / len(ids_sel))
-                time.sleep(0.3)
-            barra.empty()
-            if errores == 0:
-                st.success(f"✅ {enviados} seguimiento(s) enviados.")
-            else:
-                st.warning(f"✅ {enviados} enviados · ❌ {errores} con error.")
-
-
-# ═══════════════════════════════════════════════
-# MI CONFIGURACIÓN
-# ═══════════════════════════════════════════════
-
-elif pagina == "Mi configuración":
-    st.title("⚙️ Mi configuración")
-    st.caption("Esta configuración aplica solo a tu cuenta.")
-
-    tab_correo, tab_plantilla = st.tabs(["Correo", "Plantilla"])
-
-    with tab_correo:
-        st.subheader("Mi correo de envío")
-        st.caption(
-            "Tus correos de prospección salen desde aquí. Usa una cuenta de Gmail con verificación en 2 pasos "
-            "y genera una **Contraseña de aplicación** en myaccount.google.com/apppasswords."
-        )
-        row = get_usuario_row(username_actual)
-        mi_remitente = st.text_input("Correo remitente", value=row.get("email_remitente", ""))
-        mi_password = st.text_input("Contraseña de aplicación", value=row.get("email_password", ""), type="password")
-        if st.button("Guardar mi correo", type="primary", key="btn_guardar_mi_correo"):
-            set_usuario_email(username_actual, mi_remitente, mi_password)
-            st.success("Correo guardado.")
-
-    with tab_plantilla:
-        st.subheader("Mi plantilla de correo")
-        st.caption("Esta plantilla se carga automáticamente en tus envíos. Puedes editarla en cada campaña sin que cambie la guardada aquí.")
-        columnas = get_columnas_excel()
-        col_correo = get_config("columna_correo", "Correo")
-        cols_sin_correo = [c for c in columnas if c != col_correo]
-        st.caption(f"Placeholders disponibles: {' · '.join(f'**({c})**' for c in cols_sin_correo)}")
-        mi_asunto_actual, mi_cuerpo_actual = get_plantilla_usuario(username_actual)
-        mi_asunto = st.text_input("Asunto", value=mi_asunto_actual, key="mi_asunto_plantilla")
-        mi_cuerpo = st.text_area("Cuerpo", value=mi_cuerpo_actual, height=300, key="mi_cuerpo_plantilla")
-        if st.button("Guardar mi plantilla", type="primary", key="btn_guardar_mi_plantilla"):
-            set_usuario_plantilla(username_actual, mi_asunto, mi_cuerpo)
-            st.success("Plantilla guardada.")
-
-    st.divider()
-    st.subheader("Cambiar mi contraseña")
-    pwd_actual = st.text_input("Contraseña actual", type="password", key="pwd_actual")
-    pwd_nueva = st.text_input("Nueva contraseña", type="password", key="pwd_nueva")
-    pwd_confirmar = st.text_input("Confirmar nueva contraseña", type="password", key="pwd_confirmar")
-    if st.button("Cambiar contraseña", key="btn_cambiar_pwd_propia"):
-        if not verificar_usuario(username_actual, pwd_actual):
-            st.error("La contraseña actual no es correcta.")
-        elif pwd_nueva != pwd_confirmar:
-            st.error("Las contraseñas nuevas no coinciden.")
-        elif not pwd_nueva.strip():
-            st.error("La nueva contraseña no puede estar vacía.")
-        else:
-            row = get_usuario_row(username_actual)
-            cambiar_password_usuario(int(row["id"]), pwd_nueva)
-            st.success("Contraseña actualizada.")
-
-
-# ═══════════════════════════════════════════════
-# ADMINISTRACIÓN
-# ═══════════════════════════════════════════════
-
-elif pagina == "Administración":
-    verificar_admin()
-    st.title("⚙️ Administración")
-
-    tab_usuarios, tab_columnas, tab_limpiar, tab_seguridad, tab_respaldo = st.tabs([
-        "Usuarios", "Columnas del Excel", "Limpiar datos", "Seguridad", "Respaldo"
-    ])
-
-    # ── Usuarios ──
-    with tab_usuarios:
-        st.subheader("Usuarios")
-        usuarios_df = get_usuarios()
-        st.dataframe(usuarios_df[["username", "nombre", "activo", "email_remitente", "creado_en"]].rename(columns={
-            "username": "Usuario", "nombre": "Nombre", "activo": "Activo",
-            "email_remitente": "Correo configurado", "creado_en": "Creado"
-        }))
-
-        st.markdown("**Crear nuevo usuario**")
-        c1, c2, c3 = st.columns(3)
-        with c1:
-            new_username = st.text_input("Usuario", key="new_username")
-        with c2:
-            new_nombre = st.text_input("Nombre completo", key="new_nombre")
-        with c3:
-            new_password = st.text_input("Contraseña inicial", type="password", key="new_password")
-        if st.button("Crear usuario", key="btn_crear_usuario"):
-            if new_username.strip() and new_password.strip():
-                ok, msg = crear_usuario(new_username, new_password, new_nombre)
-                if ok:
-                    st.success(msg)
-                    st.rerun()
-                else:
-                    st.error(msg)
-            else:
-                st.error("Usuario y contraseña son obligatorios.")
-
-        st.markdown("**Cambiar contraseña de un usuario**")
-        c1, c2, c3 = st.columns([2, 2, 1])
-        with c1:
-            user_pwd = st.selectbox("Usuario", usuarios_df["username"].tolist(), key="sel_user_pwd")
-        with c2:
-            nueva_pwd_u = st.text_input("Nueva contraseña", type="password", key="nueva_pwd_u")
-        with c3:
-            st.write("")
-            if st.button("Cambiar", key="btn_cambiar_pwd_admin"):
-                if nueva_pwd_u.strip():
-                    uid = int(usuarios_df.loc[usuarios_df["username"] == user_pwd, "id"].iloc[0])
-                    cambiar_password_usuario(uid, nueva_pwd_u)
-                    st.success("Contraseña actualizada.")
-                else:
-                    st.error("Escribe la nueva contraseña.")
-
-        st.markdown("**Activar / Desactivar usuario**")
-        c1, c2 = st.columns([3, 1])
-        with c1:
-            user_toggle = st.selectbox("Usuario", usuarios_df["username"].tolist(), key="sel_user_toggle")
-        with c2:
-            activo_actual = bool(usuarios_df.loc[usuarios_df["username"] == user_toggle, "activo"].iloc[0])
-            st.write("")
-            if st.button("Desactivar" if activo_actual else "Activar", key="btn_toggle_user"):
-                uid = int(usuarios_df.loc[usuarios_df["username"] == user_toggle, "id"].iloc[0])
-                toggle_usuario_activo(uid, not activo_actual)
-                st.success(f"Usuario {'desactivado' if activo_actual else 'activado'}.")
-                st.rerun()
-
-    # ── Columnas del Excel ──
-    with tab_columnas:
-        st.subheader("Columnas del Excel (globales para todos los usuarios)")
-        columnas = get_columnas_excel()
-        col_correo = get_config("columna_correo", "Correo")
-        st.dataframe(pd.DataFrame({
-            "Columna": columnas,
-            "Es columna de correo": [c == col_correo for c in columnas]
-        }))
-        st.markdown("**Agregar columna**")
-        c1, c2 = st.columns([3, 1])
-        with c1:
-            nueva_col = st.text_input("Nombre", key="nueva_col_excel")
-        with c2:
-            st.write("")
-            if st.button("Agregar", key="btn_agregar_col"):
-                nc = nueva_col.strip()
-                if nc and nc not in columnas:
-                    columnas.append(nc)
-                    set_config("columnas_excel", json.dumps(columnas))
-                    st.success("Columna agregada.")
-                    st.rerun()
-                elif nc in columnas:
-                    st.error("Ya existe.")
-        if len(columnas) > 1:
-            st.markdown("**Quitar columna**")
-            c1, c2 = st.columns([3, 1])
-            with c1:
-                col_quitar = st.selectbox("Columna a quitar", columnas, key="col_quitar")
-            with c2:
-                st.write("")
-                if st.button("Quitar", type="secondary", key="btn_quitar_col"):
-                    if col_quitar == col_correo:
-                        st.error("No puedes quitar la columna de correo.")
-                    else:
-                        columnas.remove(col_quitar)
-                        set_config("columnas_excel", json.dumps(columnas))
-                        st.success("Eliminada.")
-                        st.rerun()
-        st.markdown("**Columna que contiene el correo de destino**")
-        c1, c2 = st.columns([3, 1])
-        with c1:
-            nueva_col_correo = st.selectbox(
-                "Columna de correo", columnas,
-                index=columnas.index(col_correo) if col_correo in columnas else 0,
-                key="sel_col_correo"
-            )
-        with c2:
-            st.write("")
-            if st.button("Guardar", key="btn_col_correo"):
-                set_config("columna_correo", nueva_col_correo)
-                st.success(f"'{nueva_col_correo}' es ahora la columna de correo.")
-                st.rerun()
-
-    # ── Limpiar datos ──
-    with tab_limpiar:
-        st.subheader("Borrar campañas o correos")
-        campanas_todas = get_campanas()
-        if campanas_todas.empty:
-            st.info("No hay campañas registradas.")
-        else:
-            st.markdown("**Borrar una campaña completa**")
-            campana_borrar_id = st.selectbox(
-                "Campaña a borrar",
-                campanas_todas["id"].tolist(),
-                format_func=lambda x: (
-                    f"[{campanas_todas.loc[campanas_todas['id']==x,'usuario'].iloc[0]}] "
-                    f"{campanas_todas.loc[campanas_todas['id']==x,'nombre'].iloc[0]} "
-                    f"({int(campanas_todas.loc[campanas_todas['id']==x,'total'].iloc[0])} correos)"
-                ),
-                key="sel_campana_borrar"
-            )
-            nombre_sel = campanas_todas.loc[campanas_todas["id"] == campana_borrar_id, "nombre"].iloc[0]
-            st.warning(f"Esto borrará **{nombre_sel}** y todos sus correos. No se puede deshacer.")
-            if st.checkbox(f"Confirmo borrar '{nombre_sel}'", key="chk_borrar_campana"):
-                if st.button("🗑️ Borrar campaña", type="secondary", key="btn_borrar_campana"):
-                    borrar_campana(int(campana_borrar_id))
-                    st.success("Campaña eliminada.")
-                    st.rerun()
-
-            st.divider()
-            st.markdown("**Borrar un correo individual**")
-            campana_det_id = st.selectbox(
-                "Campaña",
-                campanas_todas["id"].tolist(),
-                format_func=lambda x: campanas_todas.loc[campanas_todas["id"]==x, "nombre"].iloc[0],
-                key="sel_campana_det"
-            )
-            df_correos_adm = get_correos_campana(campana_det_id)
-            if df_correos_adm.empty:
-                st.info("Sin correos en esta campaña.")
-            else:
-                correo_borrar_id = st.selectbox(
-                    "Correo a borrar",
-                    df_correos_adm["id"].tolist(),
-                    format_func=lambda x: (
-                        f"{df_correos_adm.loc[df_correos_adm['id']==x,'nombres'].iloc[0]} — "
-                        f"{df_correos_adm.loc[df_correos_adm['id']==x,'estado'].iloc[0]}"
-                    ),
-                    key="sel_correo_borrar"
-                )
-                if st.button("🗑️ Borrar este correo", type="secondary", key="btn_borrar_correo"):
-                    borrar_correo_enviado(int(correo_borrar_id))
-                    st.success("Correo eliminado.")
-                    st.rerun()
-
-    # ── Seguridad ──
-    with tab_seguridad:
-        st.subheader("Contraseña de Administración")
-        nueva_admin_pwd = st.text_input("Nueva contraseña de administración", type="password")
-        if st.button("Actualizar", key="btn_admin_pwd"):
-            if nueva_admin_pwd.strip():
-                set_config("admin_password", hash_pw(nueva_admin_pwd.strip()))
-                st.success("Contraseña actualizada.")
-            else:
-                st.error("No puede estar vacía.")
-        st.divider()
-        if st.button("Cerrar sesión de administrador", key="btn_cerrar_admin"):
-            st.session_state.is_admin = False
-            st.rerun()
-
-    # ── Respaldo ──
-    with tab_respaldo:
-        st.subheader("Respaldo de la base de datos")
-        try:
-            st.download_button(
-                "⬇️ Descargar respaldo completo (.db)",
-                leer_respaldo_db(),
-                file_name=f"respaldo_prospeccion_{hoy_cdmx().isoformat()}.db",
-                mime="application/octet-stream"
-            )
-        except FileNotFoundError:
-            st.info("La base de datos todavía no existe.")
-        st.divider()
-        st.subheader("Restaurar desde respaldo")
-        st.warning("Esto reemplaza todos los datos actuales.")
-        archivo_respaldo = st.file_uploader("Sube el archivo .db", type=["db"], key="subir_respaldo")
-        if archivo_respaldo:
-            if st.checkbox("Entiendo que esto reemplaza todos los datos actuales."):
-                if st.button("Restaurar", type="primary", key="btn_restaurar"):
-                    try:
-                        contenido = archivo_respaldo.read()
-                        with open(DB_PATH, "wb") as f:
-                            f.write(contenido)
-                        get_conn().execute("SELECT COUNT(*) FROM correos_enviados")
-                        st.success("Respaldo restaurado correctamente.")
-                        st.rerun()
-                    except Exception as e:
-                        st.error(f"No pude restaurar: {e}")
