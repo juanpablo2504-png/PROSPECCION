@@ -871,7 +871,7 @@ if pagina == "Inicio":
     nombre_display = st.session_state.get('user_nombre', username_actual)
     st.markdown(f"""
     <div style="margin-bottom:0.5rem;">
-        <h1 style="margin-bottom:0.2rem;">Bienvenido, {nombre_display}</h1>
+        <h1 style="margin-bottom:0.2rem;">Bienvenid@, {nombre_display}</h1>
         <p style="color:#606080; font-size:0.9rem; margin:0;">
             ¿Qué quieres hacer hoy?
         </p>
