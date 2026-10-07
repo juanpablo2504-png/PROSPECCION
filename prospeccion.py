@@ -601,7 +601,14 @@ html, body, [class*="css"] {
 /* ── Texto principal (evita que herede color blanco del sidebar) ── */
 .main .block-container { color: #111111 !important; }
 .main p, .main span:not([class*="css"]), .main li { color: #111111 !important; }
-[data-testid="stTabsContent"] * { color: #111111 !important; }
+[data-testid="stTabsContent"] p,
+[data-testid="stTabsContent"] span:not([data-baseweb]),
+[data-testid="stTabsContent"] label,
+[data-testid="stTabsContent"] div[data-testid="stMarkdownContainer"] { color: #111111 !important; }
+/* Botones: siempre respetar sus colores propios */
+.stButton > button { color: inherit !important; }
+.stButton > button[kind="primary"] { color: #f2f0eb !important; }
+.stButton > button[kind="secondary"] { color: #555555 !important; }
 [data-testid="stMarkdownContainer"] { color: #111111 !important; }
 [data-testid="stVerticalBlock"] { color: #111111 !important; }
 [data-testid="stSidebar"] .stRadio label {
@@ -1559,3 +1566,36 @@ elif pagina == "Administración":
             )
         except Exception as e:
             st.error(f"Error al generar respaldo: {e}")
+
+        st.divider()
+        st.subheader("Restaurar desde respaldo")
+        st.warning("Esto reemplaza todos los datos actuales (campañas, correos, seguimientos, usuarios y configuración).")
+        archivo_respaldo = st.file_uploader("Sube el archivo .json de respaldo", type=["json"], key="subir_respaldo")
+        if archivo_respaldo:
+            if st.checkbox("Entiendo que esto reemplaza todos los datos actuales.", key="chk_restaurar"):
+                if st.button("Restaurar", type="primary", key="btn_restaurar"):
+                    try:
+                        datos = json.loads(archivo_respaldo.read().decode("utf-8"))
+                        conn_rest = get_conn()
+                        c_rest = conn_rest.cursor()
+                        orden = ["seguimientos", "correos_enviados", "campanas", "usuarios", "configuracion"]
+                        for tabla in orden:
+                            if tabla in datos:
+                                c_rest.execute(f"DELETE FROM {tabla}")
+                        conn_rest.commit()
+                        for tabla in reversed(orden):
+                            if tabla in datos and datos[tabla]:
+                                cols_tabla = list(datos[tabla][0].keys())
+                                for row_data in datos[tabla]:
+                                    vals = [row_data.get(col) for col in cols_tabla]
+                                    placeholders = ",".join(["?" for _ in cols_tabla])
+                                    c_rest.execute(
+                                        f"INSERT OR IGNORE INTO {tabla} ({','.join(cols_tabla)}) VALUES ({placeholders})",
+                                        vals
+                                    )
+                        conn_rest.commit()
+                        conn_rest.close()
+                        st.success("✅ Respaldo restaurado correctamente.")
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"No pude restaurar: {e}")
