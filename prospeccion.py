@@ -510,14 +510,32 @@ def enviar_correo(destinatarios, asunto, cuerpo, adjuntos=None, username=None):
 # ─────────────────────────────────────────────
 
 def login_form():
-    col_l, col_c, col_r = st.columns([1, 1.4, 1])
+    col_l, col_c, col_r = st.columns([1, 1.2, 1])
     with col_c:
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        st.markdown("## 📧 Prospección en Frío")
+        st.markdown("<br><br><br>", unsafe_allow_html=True)
+        st.markdown("""
+        <div style="text-align:center; margin-bottom:2rem;">
+            <div style="
+                display:inline-flex; align-items:center; justify-content:center;
+                background:linear-gradient(135deg,#c8861a,#e8a020);
+                border-radius:12px; width:52px; height:52px;
+                font-size:26px; margin-bottom:1rem;
+            ">📧</div>
+            <h1 style="
+                font-size:1.7rem; font-weight:700;
+                color:#ffffff; margin:0 0 0.4rem 0;
+                letter-spacing:-0.02em; border:none; padding:0;
+            ">Prospección en Frío</h1>
+            <p style="color:#606080; font-size:0.85rem; margin:0;">
+                Ingresa tus credenciales para continuar
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
         with st.form("form_login"):
             username = st.text_input("Usuario")
             password = st.text_input("Contraseña", type="password")
-            if st.form_submit_button("Entrar", type="primary"):
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.form_submit_button("Entrar →", type="primary"):
                 resultado = verificar_usuario(username, password)
                 if resultado:
                     st.session_state.logged_in = True
@@ -549,6 +567,216 @@ def verificar_admin():
 # ─────────────────────────────────────────────
 
 init_db()
+
+# ─── Tema visual premium ───────────────────────────────────────────────────────
+st.markdown("""
+<style>
+/* ── Fuentes ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Base ── */
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
+/* ── Fondo principal ── */
+.stApp {
+    background-color: #0a0a0f;
+    color: #e8e8e8;
+}
+
+/* ── Sidebar ── */
+[data-testid="stSidebar"] {
+    background-color: #0f0f18 !important;
+    border-right: 1px solid #1e1e2e !important;
+}
+[data-testid="stSidebar"] * {
+    color: #c8c8d8 !important;
+}
+[data-testid="stSidebar"] .stRadio label {
+    font-size: 0.88rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.02em;
+    padding: 6px 0;
+}
+
+/* ── Títulos ── */
+h1 { 
+    font-weight: 700 !important;
+    font-size: 1.8rem !important;
+    color: #ffffff !important;
+    letter-spacing: -0.02em;
+    border-bottom: 1px solid #1e1e2e;
+    padding-bottom: 0.6rem;
+    margin-bottom: 1.4rem !important;
+}
+h2 { font-weight: 600 !important; color: #f0f0f0 !important; }
+h3 { font-weight: 600 !important; color: #d8d8e8 !important; font-size: 1rem !important; }
+
+/* ── Botones primarios → ámbar ── */
+.stButton > button[kind="primary"] {
+    background: linear-gradient(135deg, #c8861a 0%, #e8a020 100%) !important;
+    color: #0a0a0f !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.03em !important;
+    padding: 0.45rem 1.2rem !important;
+    transition: all 0.2s ease !important;
+}
+.stButton > button[kind="primary"]:hover {
+    background: linear-gradient(135deg, #e8a020 0%, #f0b830 100%) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(200,134,26,0.35) !important;
+}
+
+/* ── Botones secundarios ── */
+.stButton > button[kind="secondary"] {
+    background: transparent !important;
+    color: #a0a0b8 !important;
+    border: 1px solid #2a2a3e !important;
+    border-radius: 6px !important;
+    font-size: 0.85rem !important;
+    transition: all 0.2s ease !important;
+}
+.stButton > button[kind="secondary"]:hover {
+    border-color: #c8861a !important;
+    color: #e8a020 !important;
+}
+
+/* ── Inputs ── */
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stSelectbox > div > div > div,
+.stNumberInput > div > div > input {
+    background-color: #12121e !important;
+    border: 1px solid #2a2a3e !important;
+    border-radius: 6px !important;
+    color: #e8e8f0 !important;
+    font-size: 0.88rem !important;
+    transition: border-color 0.2s ease !important;
+}
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    border-color: #c8861a !important;
+    box-shadow: 0 0 0 2px rgba(200,134,26,0.15) !important;
+}
+
+/* ── Labels de inputs ── */
+.stTextInput label, .stTextArea label, .stSelectbox label,
+.stNumberInput label, .stCheckbox label, .stFileUploader label {
+    color: #8888a8 !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+}
+
+/* ── Containers con borde ── */
+[data-testid="stVerticalBlock"] > div > div[data-testid="stVerticalBlockBorderWrapper"] {
+    background: #10101a !important;
+    border: 1px solid #1e1e30 !important;
+    border-radius: 10px !important;
+    padding: 1.2rem !important;
+}
+
+/* ── Métricas ── */
+[data-testid="metric-container"] {
+    background: #10101a !important;
+    border: 1px solid #1e1e30 !important;
+    border-radius: 8px !important;
+    padding: 1rem !important;
+}
+[data-testid="metric-container"] label {
+    color: #6868888 !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+}
+[data-testid="stMetricValue"] {
+    color: #e8a020 !important;
+    font-weight: 700 !important;
+    font-size: 1.8rem !important;
+}
+
+/* ── Tabs ── */
+.stTabs [data-baseweb="tab-list"] {
+    background: transparent !important;
+    border-bottom: 1px solid #1e1e2e !important;
+    gap: 0 !important;
+}
+.stTabs [data-baseweb="tab"] {
+    color: #6868888 !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.04em !important;
+    padding: 0.6rem 1.2rem !important;
+    border-bottom: 2px solid transparent !important;
+    background: transparent !important;
+}
+.stTabs [aria-selected="true"] {
+    color: #e8a020 !important;
+    border-bottom: 2px solid #e8a020 !important;
+    background: transparent !important;
+}
+
+/* ── Dataframes ── */
+[data-testid="stDataFrame"] {
+    border: 1px solid #1e1e2e !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+/* ── Mensajes info / success / warning / error ── */
+[data-testid="stAlert"] {
+    border-radius: 6px !important;
+    font-size: 0.88rem !important;
+}
+
+/* ── Divider ── */
+hr {
+    border-color: #1e1e2e !important;
+    margin: 1.5rem 0 !important;
+}
+
+/* ── Caption / texto pequeño ── */
+.stCaption, [data-testid="stCaptionContainer"] {
+    color: #6060808 !important;
+    font-size: 0.78rem !important;
+}
+
+/* ── File uploader ── */
+[data-testid="stFileUploaderDropzone"] {
+    background: #12121e !important;
+    border: 1px dashed #2a2a3e !important;
+    border-radius: 8px !important;
+}
+
+/* ── Progress bar ── */
+.stProgress > div > div > div {
+    background: linear-gradient(90deg, #c8861a, #e8a020) !important;
+    border-radius: 4px !important;
+}
+
+/* ── Checkbox ── */
+[data-testid="stCheckbox"] span {
+    color: #a0a0c0 !important;
+    font-size: 0.88rem !important;
+}
+
+/* ── Expander ── */
+[data-testid="stExpander"] {
+    background: #10101a !important;
+    border: 1px solid #1e1e2e !important;
+    border-radius: 8px !important;
+}
+[data-testid="stExpander"] summary {
+    color: #a0a0c0 !important;
+    font-size: 0.88rem !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -587,7 +815,15 @@ if st.sidebar.button("Cerrar sesión"):
 # ═══════════════════════════════════════════════
 
 if pagina == "Inicio":
-    st.title(f"Bienvenido, {st.session_state.get('user_nombre', '')} 👋")
+    nombre_display = st.session_state.get('user_nombre', username_actual)
+    st.markdown(f"""
+    <div style="margin-bottom:0.5rem;">
+        <h1 style="margin-bottom:0.2rem;">Bienvenido, {nombre_display}</h1>
+        <p style="color:#606080; font-size:0.9rem; margin:0;">
+            ¿Qué quieres hacer hoy?
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     rem, _ = get_email_credentials_usuario(username_actual)
     if not rem:
@@ -595,29 +831,57 @@ if pagina == "Inicio":
 
     col1, col2 = st.columns(2)
     with col1:
-        with st.container(border=True):
-            st.markdown("### 📤 Envío masivo")
-            st.write("Sube un Excel con tus prospectos y envía correos personalizados a todos.")
-            if st.button("Ir a Envío masivo →", type="primary"):
-                st.session_state.pagina = "Envío masivo"
-                st.rerun()
+        st.markdown("""
+        <div style="
+            background:#10101a; border:1px solid #1e1e30;
+            border-radius:12px; padding:1.5rem 1.5rem 1rem;
+            border-left:3px solid #e8a020;
+        ">
+            <div style="font-size:1.6rem; margin-bottom:0.5rem;">📤</div>
+            <div style="font-weight:600; font-size:1rem; color:#f0f0f0; margin-bottom:0.4rem;">
+                Envío masivo
+            </div>
+            <div style="color:#606080; font-size:0.84rem; line-height:1.5;">
+                Sube un Excel con tus prospectos y envía correos personalizados a todos de un solo clic.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+        if st.button("Ir a Envío masivo →", type="primary", key="btn_masivo"):
+            st.session_state.pagina = "Envío masivo"
+            st.rerun()
     with col2:
-        with st.container(border=True):
-            st.markdown("### ✉️ Envío individual")
-            st.write("Envía un correo personalizado a un prospecto específico.")
-            if st.button("Ir a Envío individual →", type="primary"):
-                st.session_state.pagina = "Envío individual"
-                st.rerun()
+        st.markdown("""
+        <div style="
+            background:#10101a; border:1px solid #1e1e30;
+            border-radius:12px; padding:1.5rem 1.5rem 1rem;
+            border-left:3px solid #c8861a;
+        ">
+            <div style="font-size:1.6rem; margin-bottom:0.5rem;">✉️</div>
+            <div style="font-weight:600; font-size:1rem; color:#f0f0f0; margin-bottom:0.4rem;">
+                Envío individual
+            </div>
+            <div style="color:#606080; font-size:0.84rem; line-height:1.5;">
+                Envía un correo personalizado a un prospecto específico con la plantilla activa.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+        if st.button("Ir a Envío individual →", type="primary", key="btn_individual"):
+            st.session_state.pagina = "Envío individual"
+            st.rerun()
 
     st.divider()
     campanas_df = get_campanas(solo_usuario=None if is_admin else username_actual)
     if not campanas_df.empty:
         total_enviados = int(campanas_df['total'].sum())
         total_exitosos = int(campanas_df['exitosos'].sum())
-        m1, m2, m3 = st.columns(3)
-        m1.metric("Mis campañas" if not is_admin else "Total campañas", len(campanas_df))
+        tasa = round(total_exitosos / total_enviados * 100, 1) if total_enviados else 0
+        m1, m2, m3, m4 = st.columns(4)
+        m1.metric("Campañas", len(campanas_df))
         m2.metric("Correos enviados", total_enviados)
         m3.metric("Exitosos", total_exitosos)
+        m4.metric("Tasa de éxito", f"{tasa}%")
 
 
 # ═══════════════════════════════════════════════
