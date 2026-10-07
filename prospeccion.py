@@ -1550,52 +1550,32 @@ elif pagina == "Administración":
     # ── Respaldo ──
     with tab_respaldo:
         st.subheader("Respaldo de la base de datos")
+        st.caption("Descarga una copia completa de todos los datos: campañas, correos, seguimientos, usuarios y configuración.")
         try:
-            conn_r = get_conn()
-            tablas_r = {}
-            for tabla in ["configuracion", "usuarios", "campanas", "correos_enviados", "seguimientos"]:
-                df_t = pd.read_sql_query(f"SELECT * FROM {tabla}", conn_r)
-                tablas_r[tabla] = df_t.to_dict("records")
-            conn_r.close()
-            respaldo_bytes = json.dumps(tablas_r, ensure_ascii=False, default=str).encode("utf-8")
             st.download_button(
-                "⬇️ Descargar respaldo (.json)",
-                respaldo_bytes,
-                file_name=f"respaldo_prospeccion_{ahora_cdmx()[:10]}.json",
-                mime="application/json"
+                "⬇️ Descargar respaldo completo (.db)",
+                leer_respaldo_db(),
+                file_name=f"respaldo_prospeccion_{ahora_cdmx()[:10]}.db",
+                mime="application/octet-stream"
             )
+        except FileNotFoundError:
+            st.info("La base de datos todavía no existe.")
         except Exception as e:
             st.error(f"Error al generar respaldo: {e}")
 
         st.divider()
         st.subheader("Restaurar desde respaldo")
-        st.warning("Esto reemplaza todos los datos actuales (campañas, correos, seguimientos, usuarios y configuración).")
-        archivo_respaldo = st.file_uploader("Sube el archivo .json de respaldo", type=["json"], key="subir_respaldo")
+        st.warning("Esto reemplaza **todos** los datos actuales. Solo úsalo si necesitas recuperar un respaldo anterior.")
+        archivo_respaldo = st.file_uploader("Sube el archivo .db de respaldo", type=["db"], key="subir_respaldo")
         if archivo_respaldo:
-            if st.checkbox("Entiendo que esto reemplaza todos los datos actuales.", key="chk_restaurar"):
-                if st.button("Restaurar", type="primary", key="btn_restaurar"):
+            if st.checkbox("Entiendo que esto borra y reemplaza todos los datos actuales.", key="chk_restaurar"):
+                if st.button("Restaurar este respaldo", type="primary", key="btn_restaurar"):
                     try:
-                        datos = json.loads(archivo_respaldo.read().decode("utf-8"))
-                        conn_rest = get_conn()
-                        c_rest = conn_rest.cursor()
-                        orden = ["seguimientos", "correos_enviados", "campanas", "usuarios", "configuracion"]
-                        for tabla in orden:
-                            if tabla in datos:
-                                c_rest.execute(f"DELETE FROM {tabla}")
-                        conn_rest.commit()
-                        for tabla in reversed(orden):
-                            if tabla in datos and datos[tabla]:
-                                cols_tabla = list(datos[tabla][0].keys())
-                                for row_data in datos[tabla]:
-                                    vals = [row_data.get(col) for col in cols_tabla]
-                                    placeholders = ",".join(["?" for _ in cols_tabla])
-                                    c_rest.execute(
-                                        f"INSERT OR IGNORE INTO {tabla} ({','.join(cols_tabla)}) VALUES ({placeholders})",
-                                        vals
-                                    )
-                        conn_rest.commit()
-                        conn_rest.close()
+                        contenido = archivo_respaldo.read()
+                        with open(DB_PATH, "wb") as f:
+                            f.write(contenido)
+                        get_conn().execute("SELECT COUNT(*) FROM correos_enviados")
                         st.success("✅ Respaldo restaurado correctamente.")
                         st.rerun()
                     except Exception as e:
-                        st.error(f"No pude restaurar: {e}")
+                        st.error(f"No pude restaurar: el archivo no parece un respaldo válido. ({e})")
