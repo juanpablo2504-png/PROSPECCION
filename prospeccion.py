@@ -592,7 +592,18 @@ html, body, [class*="css"] {
     background-color: #111111 !important;
     border-right: none !important;
 }
-[data-testid="stSidebar"] * { color: #f2f0eb !important; }
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] div:not([data-testid]),
+[data-testid="stSidebar"] a { color: #f2f0eb !important; }
+
+/* ── Texto principal (evita que herede color blanco del sidebar) ── */
+.main .block-container { color: #111111 !important; }
+.main p, .main span:not([class*="css"]), .main li { color: #111111 !important; }
+[data-testid="stTabsContent"] * { color: #111111 !important; }
+[data-testid="stMarkdownContainer"] { color: #111111 !important; }
+[data-testid="stVerticalBlock"] { color: #111111 !important; }
 [data-testid="stSidebar"] .stRadio label {
     font-size: 0.82rem !important;
     font-weight: 500 !important;
