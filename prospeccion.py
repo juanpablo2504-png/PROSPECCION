@@ -516,20 +516,20 @@ def login_form():
         st.markdown("""
         <div style="text-align:center; margin-bottom:2.5rem;">
             <div style="
-                display:inline-block;
-                border: 1px solid #c8a96e;
-                width:50px; height:50px; line-height:50px;
-                font-size:22px; margin-bottom:1.2rem;
-            ">✉</div>
+                display:inline-flex; align-items:center; justify-content:center;
+                background:linear-gradient(135deg,#7c4dff,#c084fc);
+                border-radius:50%; width:56px; height:56px;
+                font-size:26px; margin-bottom:1.2rem;
+                box-shadow: 0 8px 32px rgba(124,77,255,0.4);
+            ">✉️</div>
             <h1 style="
-                font-family:'Cormorant Garamond',serif;
-                font-size:2rem; font-weight:400; font-style:italic;
-                color:#1a1612; margin:0 0 0.4rem 0;
-                letter-spacing:0.01em; border:none; padding:0;
+                font-size:1.8rem; font-weight:600;
+                color:#f0eaff; margin:0 0 0.4rem 0;
+                letter-spacing:-0.02em; border:none; padding:0;
             ">Prospección en Frío</h1>
-            <p style="color:#a09080; font-size:0.78rem; margin:0;
-                      letter-spacing:0.12em; text-transform:uppercase;">
-                Ingresa tus credenciales
+            <p style="color:#7060a0; font-size:0.8rem; margin:0;
+                      letter-spacing:0.06em;">
+                Ingresa tus credenciales para continuar
             </p>
         </div>
         """, unsafe_allow_html=True)
@@ -570,100 +570,80 @@ def verificar_admin():
 
 init_db()
 
-# ─── Tema visual Luxury ─────────────────────────────────────────────────────
+# ─── Tema visual Voice / Communication ───────────────────────────────────────
 st.markdown("""
 <style>
-/* ── Fuentes luxury: Cormorant (serif elegante) + Inter ── */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
 
 html, body, [class*="css"] {
-    font-family: 'Inter', sans-serif;
-    font-weight: 300;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
 }
 
-/* ── Fondo: crema cálida ── */
+/* ── Fondo: índigo casi negro con gradiente sutil ── */
 .stApp {
-    background-color: #f7f4ef;
-    color: #1a1612;
+    background: radial-gradient(ellipse at 20% 0%, #1a1035 0%, #0d0820 60%, #080612 100%);
+    color: #e8e0f8;
+    min-height: 100vh;
 }
 
-/* ── Sidebar: beige oscuro con borde sutil ── */
+/* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    background-color: #f0ece4 !important;
-    border-right: 1px solid #ddd8ce !important;
+    background: #100a24 !important;
+    border-right: 1px solid #2a1f50 !important;
 }
-[data-testid="stSidebar"] * {
-    color: #3a332a !important;
-}
+[data-testid="stSidebar"] * { color: #c0b4e0 !important; }
 [data-testid="stSidebar"] .stRadio label {
-    font-size: 0.82rem !important;
+    font-size: 0.85rem !important;
     font-weight: 400 !important;
-    letter-spacing: 0.1em !important;
-    text-transform: uppercase !important;
-    color: #6a5f52 !important;
+    letter-spacing: 0.02em !important;
+    color: #9080c0 !important;
 }
 
-/* ── Títulos: serif elegante ── */
+/* ── Títulos ── */
 h1 {
-    font-family: 'Cormorant Garamond', serif !important;
-    font-weight: 400 !important;
-    font-size: 2.2rem !important;
-    color: #1a1612 !important;
-    letter-spacing: -0.01em;
-    border-bottom: 1px solid #ddd8ce;
+    font-weight: 600 !important;
+    font-size: 1.9rem !important;
+    color: #f0eaff !important;
+    letter-spacing: -0.025em;
+    border-bottom: 1px solid #2a1f50;
     padding-bottom: 0.8rem;
-    margin-bottom: 1.6rem !important;
-    font-style: italic;
+    margin-bottom: 1.4rem !important;
 }
-h2 {
-    font-family: 'Cormorant Garamond', serif !important;
-    font-weight: 400 !important;
-    color: #2a231c !important;
-    font-style: italic;
-}
-h3 {
-    font-size: 0.78rem !important;
-    font-weight: 500 !important;
-    color: #8a7d6e !important;
-    letter-spacing: 0.12em !important;
-    text-transform: uppercase !important;
-}
+h2 { font-weight: 500 !important; color: #e0d4f8 !important; }
+h3 { font-weight: 500 !important; color: #b8a8d8 !important; font-size: 0.95rem !important; }
 
-/* ── Botón primario: dorado oscuro sobre fondo oscuro ── */
+/* ── Botón primario: lila vibrante ── */
 .stButton > button[kind="primary"] {
-    background: #2a1f14 !important;
-    color: #c8a96e !important;
-    border: 1px solid #c8a96e !important;
-    border-radius: 0px !important;
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 500 !important;
-    font-size: 0.75rem !important;
-    letter-spacing: 0.18em !important;
-    text-transform: uppercase !important;
-    padding: 0.55rem 1.6rem !important;
-    transition: all 0.3s ease !important;
+    background: linear-gradient(135deg, #7c4dff 0%, #a855f7 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 50px !important;
+    font-weight: 600 !important;
+    font-size: 0.84rem !important;
+    letter-spacing: 0.02em !important;
+    padding: 0.5rem 1.6rem !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 20px rgba(124,77,255,0.3) !important;
 }
 .stButton > button[kind="primary"]:hover {
-    background: #c8a96e !important;
-    color: #2a1f14 !important;
-    transform: none !important;
-    box-shadow: none !important;
+    background: linear-gradient(135deg, #9060ff 0%, #c070ff 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 28px rgba(124,77,255,0.45) !important;
 }
 
 /* ── Botón secundario ── */
 .stButton > button[kind="secondary"] {
     background: transparent !important;
-    color: #8a7d6e !important;
-    border: 1px solid #c8bfb0 !important;
-    border-radius: 0px !important;
-    font-size: 0.75rem !important;
-    letter-spacing: 0.1em !important;
-    text-transform: uppercase !important;
-    transition: all 0.3s ease !important;
+    color: #9080c0 !important;
+    border: 1px solid #3a2870 !important;
+    border-radius: 50px !important;
+    font-size: 0.84rem !important;
+    transition: all 0.25s ease !important;
 }
 .stButton > button[kind="secondary"]:hover {
-    border-color: #2a1f14 !important;
-    color: #2a1f14 !important;
+    border-color: #7c4dff !important;
+    color: #c0a0ff !important;
 }
 
 /* ── Inputs ── */
@@ -671,140 +651,126 @@ h3 {
 .stTextArea > div > div > textarea,
 .stSelectbox > div > div > div,
 .stNumberInput > div > div > input {
-    background-color: #faf8f5 !important;
-    border: 1px solid #d8d0c4 !important;
-    border-radius: 0px !important;
-    color: #1a1612 !important;
+    background: #160f30 !important;
+    border: 1px solid #2a2050 !important;
+    border-radius: 12px !important;
+    color: #e8e0f8 !important;
     font-size: 0.88rem !important;
-    font-weight: 300 !important;
-    transition: border-color 0.3s ease !important;
+    transition: all 0.2s ease !important;
 }
 .stTextInput > div > div > input:focus,
 .stTextArea > div > div > textarea:focus {
-    border-color: #c8a96e !important;
-    box-shadow: none !important;
+    border-color: #7c4dff !important;
+    box-shadow: 0 0 0 3px rgba(124,77,255,0.15) !important;
 }
 
 /* ── Labels ── */
 .stTextInput label, .stTextArea label, .stSelectbox label,
 .stNumberInput label, .stCheckbox label, .stFileUploader label {
-    color: #8a7d6e !important;
-    font-size: 0.72rem !important;
+    color: #7060a0 !important;
+    font-size: 0.78rem !important;
     font-weight: 500 !important;
-    letter-spacing: 0.12em !important;
+    letter-spacing: 0.06em !important;
     text-transform: uppercase !important;
 }
 
 /* ── Containers ── */
 [data-testid="stVerticalBlock"] > div > div[data-testid="stVerticalBlockBorderWrapper"] {
-    background: #faf8f5 !important;
-    border: 1px solid #ddd8ce !important;
-    border-radius: 0px !important;
+    background: rgba(22,15,48,0.7) !important;
+    border: 1px solid #2a2050 !important;
+    border-radius: 16px !important;
     padding: 1.4rem !important;
+    backdrop-filter: blur(8px);
 }
 
 /* ── Métricas ── */
 [data-testid="metric-container"] {
-    background: #faf8f5 !important;
-    border: 1px solid #ddd8ce !important;
-    border-radius: 0px !important;
+    background: rgba(22,15,48,0.6) !important;
+    border: 1px solid #2a2050 !important;
+    border-radius: 14px !important;
     padding: 1.2rem !important;
-    border-top: 2px solid #c8a96e !important;
 }
 [data-testid="metric-container"] label {
-    color: #8a7d6e !important;
-    font-size: 0.7rem !important;
+    color: #6858a0 !important;
+    font-size: 0.72rem !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.12em !important;
+    letter-spacing: 0.1em !important;
     font-weight: 500 !important;
 }
 [data-testid="stMetricValue"] {
-    font-family: 'Cormorant Garamond', serif !important;
-    color: #2a1f14 !important;
-    font-weight: 400 !important;
-    font-size: 2rem !important;
+    color: #c0a0ff !important;
+    font-weight: 600 !important;
+    font-size: 1.9rem !important;
 }
 
 /* ── Tabs ── */
 .stTabs [data-baseweb="tab-list"] {
     background: transparent !important;
-    border-bottom: 1px solid #ddd8ce !important;
+    border-bottom: 1px solid #2a2050 !important;
     gap: 0 !important;
 }
 .stTabs [data-baseweb="tab"] {
-    color: #a09080 !important;
-    font-size: 0.72rem !important;
+    color: #6858a0 !important;
+    font-size: 0.82rem !important;
     font-weight: 500 !important;
-    letter-spacing: 0.12em !important;
-    text-transform: uppercase !important;
-    padding: 0.7rem 1.4rem !important;
-    border-bottom: 1px solid transparent !important;
+    letter-spacing: 0.03em !important;
+    padding: 0.65rem 1.3rem !important;
+    border-bottom: 2px solid transparent !important;
     background: transparent !important;
 }
 .stTabs [aria-selected="true"] {
-    color: #2a1f14 !important;
-    border-bottom: 1px solid #2a1f14 !important;
+    color: #c0a0ff !important;
+    border-bottom: 2px solid #7c4dff !important;
     background: transparent !important;
 }
 
 /* ── Dataframes ── */
 [data-testid="stDataFrame"] {
-    border: 1px solid #ddd8ce !important;
-    border-radius: 0px !important;
+    border: 1px solid #2a2050 !important;
+    border-radius: 12px !important;
     overflow: hidden;
 }
 
 /* ── Divider ── */
 hr {
-    border-color: #ddd8ce !important;
-    margin: 2rem 0 !important;
+    border-color: #2a2050 !important;
+    margin: 1.5rem 0 !important;
 }
 
 /* ── Caption ── */
 .stCaption, [data-testid="stCaptionContainer"] {
-    color: #a09080 !important;
+    color: #6858a0 !important;
     font-size: 0.78rem !important;
-    font-weight: 300 !important;
-}
-
-/* ── Alertas ── */
-[data-testid="stAlert"] {
-    border-radius: 0px !important;
-    font-size: 0.86rem !important;
-    font-weight: 300 !important;
 }
 
 /* ── File uploader ── */
 [data-testid="stFileUploaderDropzone"] {
-    background: #faf8f5 !important;
-    border: 1px dashed #c8bfb0 !important;
-    border-radius: 0px !important;
+    background: rgba(22,15,48,0.5) !important;
+    border: 1px dashed #3a2870 !important;
+    border-radius: 12px !important;
 }
 
 /* ── Progress bar ── */
 .stProgress > div > div > div {
-    background: linear-gradient(90deg, #a07840, #c8a96e) !important;
-    border-radius: 0px !important;
+    background: linear-gradient(90deg, #7c4dff, #c084fc) !important;
+    border-radius: 4px !important;
 }
 
 /* ── Expander ── */
 [data-testid="stExpander"] {
-    background: #faf8f5 !important;
-    border: 1px solid #ddd8ce !important;
-    border-radius: 0px !important;
+    background: rgba(22,15,48,0.5) !important;
+    border: 1px solid #2a2050 !important;
+    border-radius: 12px !important;
 }
 [data-testid="stExpander"] summary {
-    color: #6a5f52 !important;
-    font-size: 0.82rem !important;
-    letter-spacing: 0.05em !important;
-    text-transform: uppercase !important;
+    color: #9080c0 !important;
+    font-size: 0.85rem !important;
 }
 
 /* ── Checkbox ── */
 [data-testid="stCheckbox"] span {
-    color: #5a5048 !important;
-    font-size: 0.86rem !important;
-    font-weight: 300 !important;
+    color: #b0a0d8 !important;
+    font-size: 0.88rem !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -864,19 +830,20 @@ if pagina == "Inicio":
     with col1:
         st.markdown("""
         <div style="
-            background:#faf8f5; border:1px solid #ddd8ce;
-            border-top:2px solid #c8a96e;
-            padding:1.8rem 1.6rem 1.2rem;
+            background:rgba(22,15,48,0.6); border:1px solid #2a2050;
+            border-radius:16px; padding:1.8rem 1.6rem 1.2rem;
+            position:relative; overflow:hidden;
         ">
-            <div style="font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase;
-                        color:#c8a96e; margin-bottom:0.8rem; font-weight:500;">
-                Campaña
-            </div>
-            <div style="font-family:'Cormorant Garamond',serif; font-style:italic;
-                        font-size:1.5rem; color:#1a1612; margin-bottom:0.6rem; font-weight:400;">
+            <div style="
+                position:absolute; top:-20px; right:-20px;
+                width:80px; height:80px; border-radius:50%;
+                background:radial-gradient(circle, rgba(124,77,255,0.15), transparent 70%);
+            "></div>
+            <div style="font-size:1.6rem; margin-bottom:0.8rem;">📤</div>
+            <div style="font-weight:600; font-size:1.05rem; color:#f0eaff; margin-bottom:0.5rem;">
                 Envío masivo
             </div>
-            <div style="color:#8a7d6e; font-size:0.84rem; line-height:1.6; font-weight:300;">
+            <div style="color:#7060a0; font-size:0.84rem; line-height:1.6;">
                 Sube un Excel con tus prospectos y envía correos personalizados a todos de un solo clic.
             </div>
         </div>
@@ -888,19 +855,20 @@ if pagina == "Inicio":
     with col2:
         st.markdown("""
         <div style="
-            background:#faf8f5; border:1px solid #ddd8ce;
-            border-top:2px solid #2a1f14;
-            padding:1.8rem 1.6rem 1.2rem;
+            background:rgba(22,15,48,0.6); border:1px solid #2a2050;
+            border-radius:16px; padding:1.8rem 1.6rem 1.2rem;
+            position:relative; overflow:hidden;
         ">
-            <div style="font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase;
-                        color:#2a1f14; margin-bottom:0.8rem; font-weight:500;">
-                Prospecto
-            </div>
-            <div style="font-family:'Cormorant Garamond',serif; font-style:italic;
-                        font-size:1.5rem; color:#1a1612; margin-bottom:0.6rem; font-weight:400;">
+            <div style="
+                position:absolute; top:-20px; right:-20px;
+                width:80px; height:80px; border-radius:50%;
+                background:radial-gradient(circle, rgba(168,85,247,0.15), transparent 70%);
+            "></div>
+            <div style="font-size:1.6rem; margin-bottom:0.8rem;">✉️</div>
+            <div style="font-weight:600; font-size:1.05rem; color:#f0eaff; margin-bottom:0.5rem;">
                 Envío individual
             </div>
-            <div style="color:#8a7d6e; font-size:0.84rem; line-height:1.6; font-weight:300;">
+            <div style="color:#7060a0; font-size:0.84rem; line-height:1.6;">
                 Envía un correo personalizado a un prospecto específico con la plantilla activa.
             </div>
         </div>
