@@ -600,15 +600,20 @@ html, body, [class*="css"] {
 
 /* ── Texto principal (evita que herede color blanco del sidebar) ── */
 .main .block-container { color: #111111 !important; }
-.main p, .main span:not([class*="css"]), .main li { color: #111111 !important; }
-[data-testid="stTabsContent"] p,
-[data-testid="stTabsContent"] span:not([data-baseweb]),
-[data-testid="stTabsContent"] label,
+.main p:not(:is(.stButton *)), .main li { color: #111111 !important; }
+.main span:not([class*="css"]):not(:is(.stButton *)) { color: #111111 !important; }
 [data-testid="stTabsContent"] div[data-testid="stMarkdownContainer"] { color: #111111 !important; }
-/* Botones: siempre respetar sus colores propios */
-.stButton > button { color: inherit !important; }
-.stButton > button[kind="primary"] { color: #f2f0eb !important; }
-.stButton > button[kind="secondary"] { color: #555555 !important; }
+[data-testid="stTabsContent"] label:not(:is(.stButton *)) { color: #111111 !important; }
+/* Botones: forzar colores propios sobre cualquier herencia */
+.stButton > button[kind="primary"],
+.stButton > button[kind="primary"] p,
+.stButton > button[kind="primary"] span { color: #f2f0eb !important; }
+.stButton > button[kind="secondary"],
+.stButton > button[kind="secondary"] p,
+.stButton > button[kind="secondary"] span { color: #555555 !important; }
+.stButton > button[kind="primary"]:hover,
+.stButton > button[kind="primary"]:hover p,
+.stButton > button[kind="primary"]:hover span { color: #ffffff !important; }
 [data-testid="stMarkdownContainer"] { color: #111111 !important; }
 [data-testid="stVerticalBlock"] { color: #111111 !important; }
 [data-testid="stSidebar"] .stRadio label {
