@@ -871,7 +871,7 @@ if pagina == "Inicio":
     nombre_display = st.session_state.get('user_nombre', username_actual)
     st.markdown(f"""
     <div style="margin-bottom:0.5rem;">
-        <h1 style="margin-bottom:0.2rem;">Bienvenid@, {nombre_display}</h1>
+        <h1 style="margin-bottom:0.2rem;">Bienvenido, {nombre_display}</h1>
         <p style="color:#606080; font-size:0.9rem; margin:0;">
             ¿Qué quieres hacer hoy?
         </p>
@@ -1382,6 +1382,36 @@ elif pagina == "Mi configuración":
         if st.button("Guardar mi plantilla", type="primary", key="btn_guardar_mi_plantilla"):
             set_usuario_plantilla(username_actual, mi_asunto, mi_cuerpo)
             st.success("Plantilla guardada.")
+
+    st.divider()
+    st.subheader("Respaldo")
+    st.caption("Descarga una copia de todos los datos de la app para poder restaurarlos si algo se pierde.")
+    try:
+        st.download_button(
+            "⬇️ Descargar respaldo completo (.db)",
+            leer_respaldo_db(),
+            file_name=f"respaldo_prospeccion_{ahora_cdmx()[:10]}.db",
+            mime="application/octet-stream",
+            key="dl_respaldo_config"
+        )
+    except FileNotFoundError:
+        st.info("La base de datos todavía no existe.")
+
+    st.markdown("**Restaurar desde respaldo**")
+    st.warning("Esto reemplaza **todos** los datos actuales. Solo úsalo si necesitas recuperar un respaldo anterior.")
+    archivo_rest_config = st.file_uploader("Sube el archivo .db de respaldo", type=["db"], key="subir_respaldo_config")
+    if archivo_rest_config:
+        if st.checkbox("Entiendo que esto borra y reemplaza todos los datos actuales.", key="chk_restaurar_config"):
+            if st.button("Restaurar este respaldo", type="primary", key="btn_restaurar_config"):
+                try:
+                    contenido = archivo_rest_config.read()
+                    with open(DB_PATH, "wb") as f:
+                        f.write(contenido)
+                    get_conn().execute("SELECT COUNT(*) FROM correos_enviados")
+                    st.success("✅ Respaldo restaurado correctamente.")
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"No pude restaurar: el archivo no parece un respaldo válido. ({e})")
 
     st.divider()
     st.subheader("Cambiar mi contraseña")
